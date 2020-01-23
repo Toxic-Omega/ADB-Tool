@@ -13,6 +13,6 @@ _____________________________________________________
 Screenshots
 <br>
 <p align="center">
-<img width="100%" src=""/>
+<img width="100%" src="https://github.com/Toxic-Omega/ADB-Tool/blob/master/Screenshot/Screenshot_1.png"/>
 </p>
 <br>
