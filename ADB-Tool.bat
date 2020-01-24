@@ -5,6 +5,7 @@ cd adb
 mkdir Screenshot0
 mkdir Video0
 :adb
+color 4
 mode con: cols=100 lines=30
 SETLOCAL ENABLEDELAYEDEXPANSION
 cls
@@ -26,15 +27,15 @@ echo [ 2 ] Restart Adb Server                          [ 12 ] Shell
 echo ------------------------                          -----------------------  
 echo [ 3 ] Disconnect All Devices                      [ 13 ] Download Files
 echo [ 4 ] Connect To Device                           [ 14 ] Upload Files
-echo [ 5 ] Show Connected Devices                      [ 15 ]
-echo [ 6 ] Change Port                                 [ 16 ]
+echo [ 5 ] Show Connected Devices                      [ 15 ] Turn Phone Screen On/Off
+echo [ 6 ] Change Port                                 [ 16 ] Open Browser
 echo ------------------------                          ------------------------
-echo [ 7 ] Enable Wi-Fi                                [ 17 ]
-echo [ 8 ] Disable Wi-Fi                               [ 18 ]
-echo [ 9 ] Restart Phone                               [ 19 ]
+echo [ 7 ] Enable Wi-Fi                                [ 17 ] Brightness Up
+echo [ 8 ] Disable Wi-Fi                               [ 18 ] Brightness Down
+echo [ 9 ] Restart Phone                               [ 19 ] Go To Home
 echo ------------------------                          ------------------------
 echo.
-echo [ x ] Exit
+echo [ x ] Exit                                        [ n ] Next Page
 echo.
 set /p "op=>> "
 IF "%op%" == "0" GOTO start
@@ -52,8 +53,82 @@ IF "%op%" == "11" GOTO screenshot
 IF "%op%" == "12" GOTO shell
 IF "%op%" == "13" GOTO pull
 IF "%op%" == "14" GOTO push
+IF "%op%" == "15" GOTO screen
+IF "%op%" == "16" GOTO browser
+IF "%op%" == "17" GOTO up
+IF "%op%" == "18" GOTO down
+IF "%op%" == "19" GOTO home
 IF "%op%" == "x" GOTO exit
-IF not "%op%"  == "16" IF not "%op%"  == "15" IF not "%op%"  == "14" IF not "%op%"  == "13" IF not "%op%"  == "12" IF not "%op%"  == "11" IF not "%op%"  == "10" IF not "%op%"  == "0" IF not "%op%"  == "1" IF not "%op%"  == "2" IF not "%op%"  == "3" IF not "%op%"  == "4" IF not "%op%" == "5" IF not "%op%" == "6" IF not "%op%" == "7" IF not "%op%" == "8" IF not "%op%" == "9" IF not "%op%" == "x" GOTO adb
+IF "%op%" == "p" GOTO adb2
+IF not "%op%"  == "n" IF not "%op%"  == "19" IF not "%op%"  == "18" IF not "%op%"  == "17" IF not "%op%"  == "16" IF not "%op%"  == "15" IF not "%op%"  == "14" IF not "%op%"  == "13" IF not "%op%"  == "12" IF not "%op%"  == "11" IF not "%op%"  == "10" IF not "%op%"  == "0" IF not "%op%"  == "1" IF not "%op%"  == "2" IF not "%op%"  == "3" IF not "%op%"  == "4" IF not "%op%" == "5" IF not "%op%" == "6" IF not "%op%" == "7" IF not "%op%" == "8" IF not "%op%" == "9" IF not "%op%" == "x" GOTO adb
+:adb2
+color 4
+mode con: cols=100 lines=30
+SETLOCAL ENABLEDELAYEDEXPANSION
+cls
+echo.
+echo   ______  ____    ____                     ______                ___      
+echo  /\  _  \/\  _`\ /\  _`\                  /\__  _\              /\_ \     
+echo  \ \ \L\ \ \ \/\ \ \ \L\ \                \/_/\ \/   ___     ___\//\ \    
+echo   \ \  __ \ \ \ \ \ \  _  \      _______     \ \ \  / __`\  / __`\\ \ \   
+echo    \ \ \/\ \ \ \_\ \ \ \L\ \    /\______\     \ \ \/\ \L\ \/\ \L\ \\_\ \_ 
+echo     \ \_\ \_\ \____/\ \____/    \/______/      \ \_\ \____/\ \____//\____\
+echo      \/_/\/_/\/___/  \/___/                     \/_/\/___/  \/___/ \/____/                                                                                                                                                                   
+echo.
+echo                                Happy Hacking ;D                     - Beta
+echo.
+echo ------------------------                          ------------------------
+echo [ 20 ] Show Netstat                               [ 30 ] 
+echo [ 21 ] Show CPU processes                         [ 31 ] 
+echo [ 22 ] Install Apk                                [ 32 ] 
+echo ------------------------                          -----------------------  
+echo [ 23 ]                                            [ 33 ] 
+echo [ 24 ]                                            [ 34 ] 
+echo [ 25 ]                                            [ 35 ] 
+echo [ 26 ]                                            [ 36 ] 
+echo ------------------------                          ------------------------
+echo [ 27 ]                                            [ 37 ] 
+echo [ 28 ]                                            [ 38 ] 
+echo [ 29 ]                                            [ 39 ] 
+echo ------------------------                          ------------------------
+echo.
+echo [ x ] Exit                                        [ f ] First Page
+echo.
+set /p "op=>> "
+IF "%op%" == "20" GOTO netstat
+IF "%op%" == "21" GOTO cpu
+IF "%op%" == "22" GOTO apk
+IF "%op%" == "23" GOTO 
+IF "%op%" == "24" GOTO 
+IF "%op%" == "25" GOTO 
+IF "%op%" == "x" GOTO exit
+IF "%op%" == "f" GOTO adb
+IF not "%op%"  == "x" IF not "%op%"  == "f" IF not "%op%"  == "20" IF not "%op%"  == "21" IF not "%op%"  == "22" IF not "%op%"  == "23" IF not "%op%"  == "24" IF not "%op%"  == "25" GOTO adb2
+#Page 2
+#------------------------------------------------------------------------------------------------
+:netstat
+cls
+adb shell netstat
+set /p "1="
+goto adb2
+:cpu
+cls
+echo To Exit CTRL + C
+echo When You Press CTRL + C This Will Show Up Terminate batch job (Y/N)?
+echo Then Press N
+echo.
+echo To Continue Press Enter!"
+set /p "1="
+adb shell top
+goto adb2
+:apk
+cls
+echo You Can Find Game/App Apks on "https://apkpure.com/"
+set /p "apk=Apk Path On Your Pc? >> "
+adb install %apk%
+goto adb2
+#Page 1 
+#------------------------------------------------------------------------------------------------
 :start
 cls
 adb start-server
@@ -133,4 +208,25 @@ adb tcpip %port%
 goto adb
 :exit
 exit
+:screen
+cls
+adb shell input keyevent 26
+goto adb
+:browser
+cls
+adb shell input keyevent 64
+goto adb
+:up
+cls
+adb shell input keyevent 221
+goto adb
+:down
+cls
+adb shell input keyevent 220
+goto adb
+:home
+cls
+adb shell input keyevent 3
+goto adb
+
 
