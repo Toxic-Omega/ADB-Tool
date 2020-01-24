@@ -50,8 +50,8 @@ IF "%op%" == "9" GOTO restart2
 IF "%op%" == "10" GOTO record
 IF "%op%" == "11" GOTO screenshot
 IF "%op%" == "12" GOTO shell
-IF "%op%" == "13" GOTO push
-IF "%op%" == "14" GOTO pull
+IF "%op%" == "13" GOTO pull
+IF "%op%" == "14" GOTO push
 IF "%op%" == "x" GOTO exit
 IF not "%op%"  == "16" IF not "%op%"  == "15" IF not "%op%"  == "14" IF not "%op%"  == "13" IF not "%op%"  == "12" IF not "%op%"  == "11" IF not "%op%"  == "10" IF not "%op%"  == "0" IF not "%op%"  == "1" IF not "%op%"  == "2" IF not "%op%"  == "3" IF not "%op%"  == "4" IF not "%op%" == "5" IF not "%op%" == "6" IF not "%op%" == "7" IF not "%op%" == "8" IF not "%op%" == "9" IF not "%op%" == "x" GOTO adb
 :start
