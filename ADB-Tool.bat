@@ -78,18 +78,18 @@ echo.
 echo                                Happy Hacking ;D                     - Beta
 echo.
 echo ------------------------                          ------------------------
-echo [ 20 ] Show Netstat                               [ 30 ] 
-echo [ 21 ] Show CPU processes                         [ 31 ] 
-echo [ 22 ] Install Apk                                [ 32 ] 
+echo [ 20 ] Show Netstat                               [ 30 ] Ping
+echo [ 21 ] Show CPU processes                         [ 31 ] Logcat
+echo [ 22 ] Show Packages                              [ 32 ] Show Events
 echo ------------------------                          -----------------------  
-echo [ 23 ]                                            [ 33 ] 
-echo [ 24 ]                                            [ 34 ] 
-echo [ 25 ]                                            [ 35 ] 
-echo [ 26 ]                                            [ 36 ] 
+echo [ 23 ] Install Apk                                [ 33 ] 
+echo [ 24 ] Uninstall Apk                              [ 34 ] 
+echo [ 25 ] Show Battry Status                         [ 35 ] 
+echo [ 26 ] Show Screen Status                         [ 36 ] 
 echo ------------------------                          ------------------------
-echo [ 27 ]                                            [ 37 ] 
-echo [ 28 ]                                            [ 38 ] 
-echo [ 29 ]                                            [ 39 ] 
+echo [ 27 ] Show Wlan0                                 [ 37 ] 
+echo [ 28 ] Make Folder                                [ 38 ] 
+echo [ 29 ] Delete Folder                              [ 39 ] 
 echo ------------------------                          ------------------------
 echo.
 echo [ x ] Exit                                        [ f ] First Page
@@ -97,13 +97,20 @@ echo.
 set /p "op=>> "
 IF "%op%" == "20" GOTO netstat
 IF "%op%" == "21" GOTO cpu
-IF "%op%" == "22" GOTO apk
-IF "%op%" == "23" GOTO 
-IF "%op%" == "24" GOTO 
-IF "%op%" == "25" GOTO 
+IF "%op%" == "22" GOTO packets
+IF "%op%" == "23" GOTO apk
+IF "%op%" == "24" GOTO apk2
+IF "%op%" == "25" GOTO battry
+IF "%op%" == "26" GOTO screen
+IF "%op%" == "27" GOTO wlan0
+IF "%op%" == "28" GOTO folder
+IF "%op%" == "29" GOTO del
+IF "%op%" == "30" GOTO ping
+IF "%op%" == "31" GOTO logcat
+IF "%op%" == "32" GOTO event
 IF "%op%" == "x" GOTO exit
 IF "%op%" == "f" GOTO adb
-IF not "%op%"  == "x" IF not "%op%"  == "f" IF not "%op%"  == "20" IF not "%op%"  == "21" IF not "%op%"  == "22" IF not "%op%"  == "23" IF not "%op%"  == "24" IF not "%op%"  == "25" GOTO adb2
+IF not "%op%"  == "32" IF not "%op%"  == "31" IF not "%op%"  == "30" IF not "%op%"  == "29" IF not "%op%"  == "28" IF not "%op%"  == "27" IF not "%op%"  == "26" IF not "%op%"  == "25" IF not "%op%"  == "24" IF not "%op%"  == "23" IF not "%op%"  == "22" IF not "%op%"  == "21" IF not "%op%"  == "x" IF not "%op%"  == "f" IF not "%op%"  == "20" IF not "%op%"  == "21" IF not "%op%"  == "22" IF not "%op%"  == "23" IF not "%op%"  == "24" IF not "%op%"  == "25" GOTO adb2
 #Page 2
 #------------------------------------------------------------------------------------------------
 :netstat
@@ -121,11 +128,88 @@ echo To Continue Press Enter!"
 set /p "1="
 adb shell top
 goto adb2
+:packets
+cls
+adb shell pm list packages
+set /p "1="
+goto adb2
 :apk
 cls
 echo You Can Find Game/App Apks on "https://apkpure.com/"
 set /p "apk=Apk Path On Your Pc? >> "
 adb install %apk%
+goto adb2
+:apk2
+cls
+echo Example Apk Name: com.termux
+set /p "apk2=Enter Apk Name That You Want To Uninstall >> "
+adb uninstall %apk2%
+goto adb2
+:battry
+mode con: cols=100 lines=42
+cls
+adb shell dumpsys battery
+set /p "1="
+goto adb2
+:screen
+mode con: cols=100 lines=50
+cls
+adb shell dumpsys display
+set /p "1="
+goto adb2
+:wlan0
+cls
+adb shell ip -f inet addr show wlan0
+set /p "1="
+goto adb2
+:folder
+cls
+set /p "name=Enter Name Of The Folder >> "
+set /p "path=Enter Where You Want To Folder To Be >> "
+adb shell mkdir %path%%name%
+goto adb2
+:del
+cls
+set /p "del=Enter Path Of The File/Folder That You Want To Delete >> "
+adb shell  rm -rf %del%
+:ping
+cls
+set /p "ip=Enter Ip Addres On The Device That You Want To Ping >> "
+cls
+echo To Exit Press CTRL + C
+echo When You Press CTRL + C This Will Show Up! Terminate batch job (Y/N)?
+echo Then Press N
+echo.
+ping %ip%
+ping %ip%
+ping %ip%
+ping %ip%
+ping %ip%
+ping %ip%
+ping %ip%
+ping %ip%
+ping %ip%
+ping %ip%
+ping %ip%
+ping %ip%
+ping %ip%
+ping %ip%
+ping %ip%
+ping %ip%
+ping %ip%
+ping %ip%
+goto adb2
+:logcat
+cls
+adb shell logcat
+goto adb2
+:event
+cls
+echo To Exit Press CTRL + C
+echo When You Press CTRL + C This Will Show Up! Terminate batch job (Y/N)?
+echo Then Press N
+echo.
+adb shell getevent
 goto adb2
 #Page 1 
 #------------------------------------------------------------------------------------------------
