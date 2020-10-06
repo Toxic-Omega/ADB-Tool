@@ -8,7 +8,6 @@ _____________________________________________________
 4. Unzip "adb.zip" in ADB-Tool
 5. Start "ADB-Tool.bat"
 
-If You Get Error You Did Somting Wrong!
 _____________________________________________________
 Screenshots
 <br>
